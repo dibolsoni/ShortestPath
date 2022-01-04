@@ -17,10 +17,17 @@ class TestAShortestPath(TestCase):
         self.assertEqual(self.sp.available_connections(node), expected)
 
     def test_distance_from_x_to_y(self):
-        self.assertEqual(self.sp.distance('a', 'b'), 2)
-        self.assertEqual(self.sp.distance('b', 'a'), 2)
         self.assertEqual(self.sp.distance('a', 'a'), 0)
+        self.assertEqual(self.sp.distance('a', 'b'), 2)
+
+    def test_distance_from_x_to_y_inverse(self):
+        self.assertEqual(self.sp.distance('b', 'a'), 2)
+
+    def test_distance_from_x_to_y_that_dont_connects(self):
         self.assertEqual(self.sp.distance('a', 'c'), None)
+
+    def test_a_way_to_a_node(self):
+        pass
 
 
 if __name__ == "__main__":
