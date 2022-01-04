@@ -1,5 +1,6 @@
 NODES = ['a', 'b', 'c', 'd', 'e', 'f']
 CONNECTIONS = [
+    ['a', 'a', 0],
     ['a', 'b', 2],
     ['a', 'd', 8],
     ['b', 'd', 5],
@@ -11,7 +12,8 @@ CONNECTIONS = [
     ['c', 'e', 9]
 ]
 
-#inpired in Dijkstra Algorithm
+
+# inspired in Dijkstra Algorithm
 class ShortestPath:
     def __init__(self, nodes, connections):
         self.nodes = nodes
@@ -20,9 +22,13 @@ class ShortestPath:
     def available_connections(self, x):
         return [c for c in self.connections if x in c]
 
+    def find_connection(self, x, y):
+        c_list = [c for c in self.connections if x in c and y in c]
+        return c_list[0] if c_list else None
+
     def distance(self, x, y):
-        pass
+        found = self.find_connection(x, y)
+        return found[2] if found is not None else None
 
     def way(self, x, y):
         pass
-
