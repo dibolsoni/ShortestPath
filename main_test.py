@@ -10,11 +10,15 @@ class TestAShortestPath(TestCase):
 
     def test_available_connections_in_a_node(self):
         node = 'a'
-        expected = [['a', 'a', 0], ['a', 'b', 2], ['a', 'd', 8]]
-        self.assertEqual(self.sp.available_connections(node), expected)
+        expected = [{'dist': 0, 'nodes': ['a', 'a']},
+                    {'dist': 2, 'nodes': ['a', 'b']},
+                    {'dist': 8, 'nodes': ['a', 'd']}]
+        self.assertEqual(expected, self.sp.available_connections(node))
         node = 'b'
-        expected = [['a', 'b', 2], ['b', 'd', 5], ['b', 'e', 6]]
-        self.assertEqual(self.sp.available_connections(node), expected)
+        expected = [{'dist': 2, 'nodes': ['a', 'b']},
+                    {'dist': 5, 'nodes': ['b', 'd']},
+                    {'dist': 6, 'nodes': ['b', 'e']}]
+        self.assertEqual(expected, self.sp.available_connections(node))
 
     def test_distance_from_x_to_y(self):
         self.assertEqual(self.sp.distance('a', 'a'), 0)
@@ -27,7 +31,14 @@ class TestAShortestPath(TestCase):
         self.assertEqual(self.sp.distance('a', 'c'), None)
 
     def test_a_way_to_a_node(self):
-        pass
+        expected = [[{'dist': 2, 'nodes': ['a', 'b']},
+                     {'dist': 6, 'nodes': ['b', 'e']}],
+                    [{'dist': 8, 'nodes': ['a', 'd']},
+                     {'dist': 3, 'nodes': ['d', 'e']}]]
+        self.assertEqual(expected, self.sp.ways('a', 'e'))
+        expected = [[{'dist': 6, 'nodes': ['b', 'e']},
+                    {'dist': 9, 'nodes': ['c', 'e']}]]
+        self.assertEqual(expected, self.sp.ways('b', 'c'))
 
 
 if __name__ == "__main__":
