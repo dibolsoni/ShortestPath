@@ -1,5 +1,5 @@
 from unittest import TestCase, main
-from ShortestPath import ShortestPath
+from ShortestPath import ShortestPath, Connection
 
 from main import NODES, CONNECTIONS
 
@@ -11,14 +11,14 @@ class TestAShortestPath(TestCase):
 
     def test_available_connections_in_a_node(self):
         node = 'a'
-        expected = [{'dist': 0, 'nodes': ['a', 'a']},
-                    {'dist': 2, 'nodes': ['a', 'b']},
-                    {'dist': 8, 'nodes': ['a', 'd']}]
+        expected = [Connection(['a', 'a'], 0),
+                    Connection(['a', 'b'], 2),
+                    Connection(['a', 'd'], 8)]
         self.assertEqual(expected, self.sp.available_connections(node))
         node = 'b'
-        expected = [{'dist': 2, 'nodes': ['a', 'b']},
-                    {'dist': 5, 'nodes': ['b', 'd']},
-                    {'dist': 6, 'nodes': ['b', 'e']}]
+        expected = [Connection(['a', 'b'], 2),
+                    Connection(['b', 'd'], 5),
+                    Connection(['b', 'e'], 6)]
         self.assertEqual(expected, self.sp.available_connections(node))
 
     def test_distance_from_x_to_y(self):
@@ -32,22 +32,22 @@ class TestAShortestPath(TestCase):
         self.assertEqual(self.sp.distance('a', 'c'), None)
 
     def test_a_way_to_a_node(self):
-        expected = [[{'dist': 2, 'nodes': ['a', 'b']},
-                     {'dist': 6, 'nodes': ['b', 'e']}],
-                    [{'dist': 8, 'nodes': ['a', 'd']},
-                     {'dist': 3, 'nodes': ['d', 'e']}]]
+        expected = [[Connection(['a', 'b'], 2),
+                     Connection(['b', 'e'], 6)],
+                    [Connection(['a', 'd'], 8),
+                     Connection(['d', 'e'], 3)]]
         self.assertEqual(expected, self.sp.ways('a', 'e'))
-        expected = [[{'dist': 6, 'nodes': ['b', 'e']},
-                     {'dist': 9, 'nodes': ['c', 'e']}]]
+        expected = [[Connection(['b', 'e'], 6),
+                     Connection(['c', 'e'], 9)]]
         self.assertEqual(expected, self.sp.ways('b', 'c'))
 
     def test_a_shortest_distance_in_ways(self):
-        ways = [[{'dist': 2, 'nodes': ['a', 'b']},
-                 {'dist': 6, 'nodes': ['b', 'e']}],
-                [{'dist': 8, 'nodes': ['a', 'd']},
-                 {'dist': 3, 'nodes': ['d', 'e']}]]
-        expected = [{'dist': 2, 'nodes': ['a', 'b']},
-                    {'dist': 6, 'nodes': ['b', 'e']}]
+        ways = [[Connection(['a', 'b'], 2),
+                 Connection(['b', 'e'], 6)],
+                [Connection(['a', 'd'], 8),
+                 Connection(['d', 'e'], 3)]]
+        expected = [Connection(['a', 'b'], 2),
+                    Connection(['b', 'e'], 6)]
         self.assertEqual(expected, self.sp.shortest_way(ways))
 
 
