@@ -37,8 +37,17 @@ class TestAShortestPath(TestCase):
                      {'dist': 3, 'nodes': ['d', 'e']}]]
         self.assertEqual(expected, self.sp.ways('a', 'e'))
         expected = [[{'dist': 6, 'nodes': ['b', 'e']},
-                    {'dist': 9, 'nodes': ['c', 'e']}]]
+                     {'dist': 9, 'nodes': ['c', 'e']}]]
         self.assertEqual(expected, self.sp.ways('b', 'c'))
+
+    def test_a_shortest_distance(self):
+        ways = [[{'dist': 2, 'nodes': ['a', 'b']},
+                        {'dist': 6, 'nodes': ['b', 'e']}],
+                       [{'dist': 8, 'nodes': ['a', 'd']},
+                        {'dist': 3, 'nodes': ['d', 'e']}]]
+        expected = [{'dist': 2, 'nodes': ['a', 'b']},
+                    {'dist': 6, 'nodes': ['b', 'e']}]
+        self.assertEqual(expected, self.sp.shortest_way(ways))
 
 
 if __name__ == "__main__":

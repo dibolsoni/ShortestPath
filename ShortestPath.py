@@ -1,3 +1,5 @@
+from functools import reduce
+
 NODES = ['a', 'b', 'c', 'd', 'e', 'f']
 CONNECTIONS = [
     {'nodes': ['a', 'a'], 'dist': 0},
@@ -42,6 +44,9 @@ class ShortestPath:
         found = self.find_connection(x, y)
         return found['dist'] if found is not None else None
 
+    def distance_way(self, way):
+        return reduce(lambda a, w: a['dist'] + w['dist'], way)
+
     def ways(self, x, y) -> list:
         result = []
         for connection in self.available_connections(x):
@@ -50,3 +55,11 @@ class ShortestPath:
                 if y in other_connection['nodes']:
                     result.append([connection, other_connection])
         return result
+
+    def shortest_way(self, ways: list) -> list:
+        if len(ways) == 1:
+            return ways
+        return reduce(
+            lambda a, w:
+            a if self.distance_way(a) < self.distance_way(w)
+            else w, ways)
