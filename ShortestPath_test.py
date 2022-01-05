@@ -7,7 +7,7 @@ from main import NODES, CONNECTIONS
 # inspired in Dijkstra Algorithm
 class TestAShortestPath(TestCase):
     def setUp(self):
-        self.sp = ShortestPath(NODES, CONNECTIONS)
+        self.sp = ShortestPath(CONNECTIONS)
 
     def test_available_connections_in_a_node(self):
         node = 'a'

@@ -1,20 +1,21 @@
-from ShortestPath import ShortestPath
+from ShortestPath import ShortestPath, Connection
 
 NODES = ['a', 'b', 'c', 'd', 'e', 'f']
 CONNECTIONS = [
-    {'nodes': ['a', 'a'], 'dist': 0},
-    {'nodes': ['a', 'b'], 'dist': 2},
-    {'nodes': ['a', 'd'], 'dist': 8},
-    {'nodes': ['b', 'd'], 'dist': 5},
-    {'nodes': ['b', 'e'], 'dist': 6},
-    {'nodes': ['d', 'e'], 'dist': 3},
-    {'nodes': ['d', 'f'], 'dist': 2},
-    {'nodes': ['f', 'e'], 'dist': 1},
-    {'nodes': ['f', 'c'], 'dist': 3},
-    {'nodes': ['c', 'e'], 'dist': 9}
+    Connection(['a', 'a'], 0),
+    Connection(['a', 'b'], 2),
+    Connection(['a', 'd'], 8),
+    Connection(['b', 'd'], 5),
+    Connection(['b', 'e'], 6),
+    Connection(['d', 'e'], 3),
+    Connection(['d', 'f'], 2),
+    Connection(['f', 'e'], 1),
+    Connection(['f', 'c'], 3),
+    Connection(['c', 'e'], 9),
 ]
 
 if __name__ == "__main__":
-    sp = ShortestPath(NODES, CONNECTIONS)
+    sp = ShortestPath(CONNECTIONS)
     sp.shortest('a', 'e')
     sp.shortest('d', 'a')
+    # sp.shortest('a', 'c')
