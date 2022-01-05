@@ -42,9 +42,9 @@ class TestAShortestPath(TestCase):
 
     def test_a_shortest_distance_in_ways(self):
         ways = [[{'dist': 2, 'nodes': ['a', 'b']},
-                        {'dist': 6, 'nodes': ['b', 'e']}],
-                       [{'dist': 8, 'nodes': ['a', 'd']},
-                        {'dist': 3, 'nodes': ['d', 'e']}]]
+                 {'dist': 6, 'nodes': ['b', 'e']}],
+                [{'dist': 8, 'nodes': ['a', 'd']},
+                 {'dist': 3, 'nodes': ['d', 'e']}]]
         expected = [{'dist': 2, 'nodes': ['a', 'b']},
                     {'dist': 6, 'nodes': ['b', 'e']}]
         self.assertEqual(expected, self.sp.shortest_way(ways))
