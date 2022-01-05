@@ -1,19 +1,5 @@
 from functools import reduce
 
-NODES = ['a', 'b', 'c', 'd', 'e', 'f']
-CONNECTIONS = [
-    {'nodes': ['a', 'a'], 'dist': 0},
-    {'nodes': ['a', 'b'], 'dist': 2},
-    {'nodes': ['a', 'd'], 'dist': 8},
-    {'nodes': ['b', 'd'], 'dist': 5},
-    {'nodes': ['b', 'e'], 'dist': 6},
-    {'nodes': ['d', 'e'], 'dist': 3},
-    {'nodes': ['d', 'f'], 'dist': 2},
-    {'nodes': ['f', 'e'], 'dist': 1},
-    {'nodes': ['f', 'c'], 'dist': 3},
-    {'nodes': ['c', 'e'], 'dist': 9}
-]
-
 
 def other_node(connection, node):
     for n in connection['nodes']:
@@ -44,22 +30,37 @@ class ShortestPath:
         found = self.find_connection(x, y)
         return found['dist'] if found is not None else None
 
-    def distance_way(self, way):
+    def distance_way(self, way: list):
         return reduce(lambda a, w: a['dist'] + w['dist'], way)
 
-    def ways(self, x, y) -> list:
+    def ways(self, node_from: str, node_to: str) -> list:
         result = []
-        for connection in self.available_connections(x):
-            other = other_node(connection, x)
+        for connection in self.available_connections(node_from):
+            other = other_node(connection, node_from)
             for other_connection in self.available_connections(other):
-                if y in other_connection['nodes']:
+                if node_to in other_connection['nodes']:
                     result.append([connection, other_connection])
         return result
 
-    def shortest_way(self, ways: list) -> list:
-        if len(ways) == 1:
-            return ways
+    def shortest_way(self, way: list) -> list:
+        if len(way) == 0:
+            raise ValueError('must have 1 way at least')
+        if len(way) == 1:
+            return way
         return reduce(
             lambda a, w:
             a if self.distance_way(a) < self.distance_way(w)
-            else w, ways)
+            else w, way)
+
+    def print_way(self, node_from, node_to, way: list):
+        print('#'*20)
+        print(f'trip from:{node_from} to:{node_to}')
+        for i, c in enumerate(way):
+            print(f'\t{i}- node:{c["nodes"][0]} to:{c["nodes"][1]}')
+        print(f'total size:{self.distance_way(way)}')
+        print('#'*20 + '\n')
+
+    def shortest(self, node_from: str, node_to: str) -> None:
+        ways = self.ways(node_from, node_to)
+        way = self.shortest_way(ways)
+        self.print_way(node_from, node_to, way)
