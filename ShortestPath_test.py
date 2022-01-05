@@ -1,6 +1,7 @@
 from unittest import TestCase, main
-from ShortestPath import \
-    ShortestPath, NODES, CONNECTIONS
+from ShortestPath import ShortestPath
+
+from main import NODES, CONNECTIONS
 
 
 # inspired in Dijkstra Algorithm
