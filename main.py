@@ -16,6 +16,12 @@ CONNECTIONS = [
 
 if __name__ == "__main__":
     sp = ShortestPath(CONNECTIONS)
-    sp.shortest('a', 'e')
+    print('#1# level route')
     sp.shortest('d', 'a')
+    sp.shortest('f', 'c')
+
+    print('#2# level route')
+    sp.shortest('a', 'e')
+    sp.shortest('b', 'f')
+
     # sp.shortest('a', 'c')

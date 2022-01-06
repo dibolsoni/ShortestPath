@@ -52,6 +52,7 @@ class ShortestPath:
             return way[0].distance
         return reduce(lambda a, c: a.distance + c.distance, way)
 
+    #must refactor
     def ways(self, node_from: Node, node_to: Node) -> List[Way]:
         result = []
         root_connections = self.available_connections(node_from)
