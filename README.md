@@ -19,3 +19,9 @@ Todo:
 ```python
 python3 main.py
 ```
+
+## Goal:
+
+Implements a Shortest Path Algorithm with infinity levels as shown in the image below. <br />
+![Dijkstra Algorithm InfinityNodes](https://upload.wikimedia.org/wikipedia/commons/2/23/Dijkstras_progress_animation.gif "Dijkstra Algorithm InfinityNodes")
+> Illustration of Dijkstra's algorithm finding a path from a start node (lower left, red) to a goal node (upper right, green) in a robot motion planning problem. Open nodes represent the "tentative" set (aka set of "unvisited" nodes). Filled nodes are visited ones, with color representing the distance: the greener, the closer. Nodes in all the different directions are explored uniformly, appearing more-or-less as a circular wavefront as Dijkstra's algorithm uses a heuristic identically equal to 0. [link](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
